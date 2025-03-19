@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+   
+</head>
+<body>
+    <div class="container">
+        <h1>Inventory Dashboard</h1>
+        <a href="reports.php" id="sidebarLink" class="sidebar-link" title="SalesReport">
+            <img src="img/tag-removebg-preview.png" class="icon" alt="Menu Icon"><span class="Sp">SalesReport</span>
+        </a>
+
+        <section>
+            <h2>Inventory</h2>
+            <button id="viewInventoryButton">View Inventory</button>
+            <button id="closeInventoryButton">Close Inventory</button>
+            <div id="inventoryTable">
+                <!-- Inventory table will load here -->
+            </div>
+        </section>
+
+        <section>
+            <h2>Add Product</h2>
+            <input type="text" id="productName" name='productName' placeholder="Product Name" required/>
+            <input type="text" id="productCategory" name = 'productCategory' placeholder="Product Category" required/>
+            <input type="number" step="0.01" min="0" id="unitPrice" name='unitPrice' placeholder="Item Price" required/>
+            <input type="number" id="quantity" name='quantity' placeholder="Quantity To Add to Stock" required/>
+            <button id="addProductButton">Add Product</button>
+        </section>
+        
+        <section>
+            <h2>Delete Product</h2>
+            <input type="number" id="ItemID" placeholder="Product ID" required/>
+            <input type="text" id="deleteProductItem" placeholder="Item Name" required/>
+            <button id="deleteProductButton">Delete Product</button>
+        </section>
+        
+        <section>
+            <h2>Customers</h2>
+            <button id="viewCustomerButton">View Customers</button>
+            <button id="closeCustomerButton">Close Customers</button>
+            <div id="customerTable">
+                <!-- Inventory table will load here -->
+            </div>
+        </section>
+
+        <section>
+            <h2>Add Customer</h2>
+            <input type="text" id="customerFirstName" placeholder="Customer First Name" required/>
+            <input type="text" id="customerLastName" placeholder="Customer Last Name" required />
+            <input type="text" id="customerPhone" placeholder="Customer Phone No." required />
+            <input type="email" id="customerEmail" placeholder="Customer Email" required/>
+            <input type="text" id="customerAddress" placeholder="Customer Address" required />
+            <button id="addCustomerButton">Add Customer</button>
+        </section>
+
+        <section>
+            <h2>Delete Customer</h2>
+            <input type="number" id="deleteUserId" placeholder="Customer ID" required/>
+            <input type="text" id="deleteLastName" placeholder="Customer Last Name" required />
+            <button id="deleteCustomerButton">Delete Customer</button>
+        </section>
+
+        <section>
+            <h2>Orders</h2>
+            <button id="viewOrderButton">View Orders</button>
+            <button id="closeOrderButton">Close Orders</button>
+            <div id="orderTable">
+                <!-- Inventory table will load here -->
+            </div>
+        </section>
+
+        <section>
+            <h2>Make Order</h2>
+            <input type="text" id="firstName" placeholder="Customer First Name" required/>
+            <input type="text" id="lastName" placeholder="Customer Last Name" required />
+            <input type="text" id="saleProductName" placeholder="Product Name" />
+            <input type="date" id="orderDate" placeholder="Date of Order" required/>
+            <input type="number" id="saleQuantity" placeholder="Quantity" required/>
+            <input type="number" id="saleCost" placeholder="Cost" required/>
+            <button id="recordSaleButton">Record Sale</button>
+        </section>
+
+        
+
+        <div id="message"> </div>
+
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
