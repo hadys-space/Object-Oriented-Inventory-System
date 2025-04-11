@@ -1,13 +1,12 @@
 <?php 
-
+    require_once 'databaseConnection.php'; // Include the database connection file
     $host = 'localhost';
     $username = 'root';
     $password = '';
     $dbname = 'inventory database';
 
 
-    $conn = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $username, $password);
-
+    $conn = DatabaseConnection::getInstance()->getConnection();
     // Set the header to tell the browser it's a plain text response
     header('Content-Type: text/plain');
 
@@ -88,7 +87,7 @@
                 $stmt->bindParam(':quantity',  $quantity, PDO::PARAM_INT);
 
                 if ($stmt->execute()) {
-                    $response = 'Product Added successfully in inventory';
+                    $response = 'Product added successfully in inventory';
                        
                 } else {
                     $response = 'Failed to add or update product in inventory';
@@ -172,18 +171,32 @@
             $orderNo = $conn->lastInsertId();
             
 
-            //Want to make sale the same time 
+           /* //Want to make sale the same time 
             //Taking the Order No., First Name, Last Name, Name of Item, ... for the email
-            /*$stmt = $conn->prepare("SELECT `First Name`,`Last Name`,`Name of Item`, `Quantity`, `Order Date`, `Total Amount` FROM orders WHERE `Order No.`= :orderNo");
-            $stmt->bindParam(":orderNo", $orderNo, PDO::PARAM_INT);
+            $stmt = $conn->prepare("SELECT email FROM customers WHERE `First Name` = :fname AND`Last Name` = :lname");
+            $stmt->bindParam(":fname", $customerFirstName, PDO::PARAM_STR);
+            $stmt->bindParam(":lname", $customerLastName, PDO::PARAM_STR);
+            $stmt->execute();
+            $email = $stmt->fetch(PDO::FETCH_ASSOC);
+            $customerEmail = $email["email"];
 
-            $orders=$stmt->fetch(PDO::FETCH_ASSOC);
-            $fname = $orders["First Name"];
-            $lname = $orders["Last Name"];
-            $itemName = $orders["Name of Item"];
-            $quantity = $orders["Quantity"];
-            $order_date = $orders["Order Date"];
-            $totalAmount = $orders["Total Amount"];*/
+
+            $to = $customerEmail;
+            $subject = "Order Confirmation: Order No. $orderNo";
+            $message = "Dear $customerFirstName $customerLastName,\n\n";
+            $message .= "Thank you for your order! Here are the details:\n";
+            $message .= "Order No.: $orderNo\n";
+            $message .= "Product Name: $productName\n";
+            $message .= "Quantity: $quantity\n";
+            $message .= "Order Date: $orderDate\n";
+            $message .= "Total Amount: $totalCost\n\n";
+            $message .= "We appreciate your business!\n";
+            $message .= "Best regards,\n";
+            $message .= "Sheaz & Grace Collections\n";
+
+            $headers = "From: sheaz+grace@gmail.com"
+
+            mail($to, $subject, $message, $headers);*/
             
             
             //Update the inventory table

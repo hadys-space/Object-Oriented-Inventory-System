@@ -1,4 +1,5 @@
 <?php
+require_once 'databaseConnection.php'; // Include the database connection file
 // Database connection details
 $host = 'localhost';
 $username = 'root'; 
@@ -6,34 +7,32 @@ $password = '';
 $dbname = 'inventory database';
 
 // Create the connection to the database
-$conn = mysqli_connect($host, $username, $password, $dbname);
+$conn = DatabaseConnection::getInstance()->getConnection();
 
 // Check connection to the database
-if (!$conn) {
-    die("Connection failed: " . mysqli_connect_error());
-}
+
 
 // Query to fetch data from the database
 $sql = "SELECT `Name of Item`, `Total In Stock`, `Total Sold` FROM `inventory`";
-$results = mysqli_query($conn, $sql);
+$stmt = $conn->query($sql);
+
 
 // Variables to hold database data
 $labels = [];
 $soldData = [];
 $stockData = [];
 
-if ($results) {
-    while ($row = mysqli_fetch_assoc($results)) {
+if ($stmt) {
+    $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    foreach ($results as $row){
         $labels[] = $row['Name of Item'];
         $soldData[] = (int)$row['Total Sold']; // Cast to ensure numeric data
         $stockData[] = (int)$row['Total In Stock']; // Cast to ensure numeric data
     }
 } else {
-    die("Query failed: " . mysqli_error($conn));
+    die("Query failed.");
 }
 
-// Close the connection
-mysqli_close($conn);
 ?>
 
 
