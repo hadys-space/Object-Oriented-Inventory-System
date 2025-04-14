@@ -1,10 +1,5 @@
 <?php 
     require_once 'databaseConnection.php'; // Include the database connection file
-    $host = 'localhost';
-    $username = 'root';
-    $password = '';
-    $dbname = 'inventory database';
-
 
     $conn = DatabaseConnection::getInstance()->getConnection();
     // Set the header to tell the browser it's a plain text response

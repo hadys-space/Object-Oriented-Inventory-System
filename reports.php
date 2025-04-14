@@ -1,10 +1,6 @@
 <?php
 require_once 'databaseConnection.php'; // Include the database connection file
 // Database connection details
-$host = 'localhost';
-$username = 'root'; 
-$password = '';   
-$dbname = 'inventory database';
 
 // Create the connection to the database
 $conn = DatabaseConnection::getInstance()->getConnection();
