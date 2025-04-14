@@ -1,5 +1,6 @@
 <?php 
     require_once 'databaseConnection.php'; // Include the database connection file
+    
 
     $conn = DatabaseConnection::getInstance()->getConnection();
     // Set the header to tell the browser it's a plain text response
@@ -103,7 +104,7 @@
         } else {
             $response = 'Failed to delete customer';
         }
-    } elseif ($action === 'view_Customer') {
+    } elseif ($action === 'view_customer') {
         // Fetch inventory from the database
         $stmt = $conn->query("SELECT `First Name`, `Last Name`, `User ID`, `Phone No.`, `Email`, `Address` FROM customers");
     
@@ -166,32 +167,18 @@
             $orderNo = $conn->lastInsertId();
             
 
-           /* //Want to make sale the same time 
+            //Want to make sale the same time 
             //Taking the Order No., First Name, Last Name, Name of Item, ... for the email
-            $stmt = $conn->prepare("SELECT email FROM customers WHERE `First Name` = :fname AND`Last Name` = :lname");
-            $stmt->bindParam(":fname", $customerFirstName, PDO::PARAM_STR);
-            $stmt->bindParam(":lname", $customerLastName, PDO::PARAM_STR);
-            $stmt->execute();
-            $email = $stmt->fetch(PDO::FETCH_ASSOC);
-            $customerEmail = $email["email"];
+            /*$stmt = $conn->prepare("SELECT `First Name`,`Last Name`,`Name of Item`, `Quantity`, `Order Date`, `Total Amount` FROM orders WHERE `Order No.`= :orderNo");
+            $stmt->bindParam(":orderNo", $orderNo, PDO::PARAM_INT);
 
-
-            $to = $customerEmail;
-            $subject = "Order Confirmation: Order No. $orderNo";
-            $message = "Dear $customerFirstName $customerLastName,\n\n";
-            $message .= "Thank you for your order! Here are the details:\n";
-            $message .= "Order No.: $orderNo\n";
-            $message .= "Product Name: $productName\n";
-            $message .= "Quantity: $quantity\n";
-            $message .= "Order Date: $orderDate\n";
-            $message .= "Total Amount: $totalCost\n\n";
-            $message .= "We appreciate your business!\n";
-            $message .= "Best regards,\n";
-            $message .= "Sheaz & Grace Collections\n";
-
-            $headers = "From: sheaz+grace@gmail.com"
-
-            mail($to, $subject, $message, $headers);*/
+            $orders=$stmt->fetch(PDO::FETCH_ASSOC);
+            $fname = $orders["First Name"];
+            $lname = $orders["Last Name"];
+            $itemName = $orders["Name of Item"];
+            $quantity = $orders["Quantity"];
+            $order_date = $orders["Order Date"];
+            $totalAmount = $orders["Total Amount"];*/
             
             
             //Update the inventory table
@@ -273,7 +260,7 @@
         } else {
             $response = 'Failed to delete product';
         }
-    }elseif ($action === 'view_Order') {
+    }elseif ($action === 'view_order') {
             // Fetch inventory from the database
             $stmt = $conn->query("SELECT `Order No.`, `First Name`, `Last Name`, `Name of Item`, `Order Date`, `Quantity`, `Total Amount` FROM orders");
         
